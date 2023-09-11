@@ -1,0 +1,19 @@
+form {
+    padding: 20px;
+    background-color: beige;
+    color: black;
+    border-radius: 5px;
+
+}
+
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.inputs {
+    display: grid;
+    grid-template-columns: 1fr;
+    place-items: flex-start;
+}
