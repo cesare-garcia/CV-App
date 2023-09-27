@@ -1,11 +1,7 @@
-function Button({text, onShow}) {
-
-  
-
-
+function Button(props) {
 
     return (
-        <button onClick={onShow}>{text}</button>
+        <button className={props.buttonType} onClick={props.clickFunction}>{props.text}</button>
     )
 
 }
