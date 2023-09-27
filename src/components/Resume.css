@@ -1,7 +1,24 @@
 .resume {
-    height: 600px;
-    width: 600px;
-    padding: 30px;
+    height: 800px;
+    width: 700px;
     background-color: white;
     color: black;
+    box-shadow: 7px 7px 7px black;
+}
+
+.personal {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(4, 60, 95);
+    color: white;
+    padding: 20px;
+} 
+
+.personalBottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.nonPersonal {
+    padding: 30px;
 }
