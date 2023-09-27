@@ -9,7 +9,7 @@ function Section(props) {
     let sectionHeader;
     let inputObject = {};
     let buttonType;
-    const [editedEntry, setEditedEntry] = useState({});
+    const [editedEntry, setEditedEntry] = useState(-1);
     if (props.sectionType === "edForm") {
         sectionHeader = "Education";
         buttonType = "expEd";
@@ -101,38 +101,20 @@ function Section(props) {
     const openEdit = (e) => {
         e.preventDefault();
         let editKey = e.target.getAttribute("data-entry");
-        let selectedEdit = {};
+        let selectedEditIndex = -1;
 
         if (e.target.classList.contains("editEducation")) {
             for (let i = 0; i < props.allInfo.eInfo2.length; i++) {
-                if ( props.allInfo.eInfo2[i].institution === editKey ) {
-                    selectedEdit = {
-                        institution: props.allInfo.eInfo2[i].institution,
-                        focus: props.allInfo.eInfo2[i].focus,
-                        start: props.allInfo.eInfo2[i].start,
-                        end: props.allInfo.eInfo2[i].end,
-                        location: props.allInfo.eInfo2[i].location
-                    }
-                }
+                if ( props.allInfo.eInfo2[i].institution === editKey ) selectedEditIndex = i;
             }
-            setEditedEntry(selectedEdit);
-
+            
         } else if (e.target.classList.contains("editWork")) {
             for (let i = 0; i < props.allInfo.wInfo2.length; i++) {
-                if ( props.allInfo.wInfo2[i].institution === editKey ) {
-                    selectedEdit = {
-                        institution: props.allInfo.wInfo2[i].institution,
-                        focus: props.allInfo.wInfo2[i].focus,
-                        start: props.allInfo.wInfo2[i].start,
-                        end: props.allInfo.wInfo2[i].end,
-                        location: props.allInfo.wInfo2[i].location,
-                        description: props.allInfo.wInfo2[i].description
-                    }
-                }
+                if ( props.allInfo.wInfo2[i].institution === editKey ) selectedEditIndex = i;
             }
-            setEditedEntry(selectedEdit);
-
+            
         }
+        setEditedEntry(selectedEditIndex);
 
     }
 
@@ -157,7 +139,7 @@ function Section(props) {
 
         revisedArray = targetCollection.filter((entry) => entry.institution !== key);
         properChanger(revisedArray);
-        setEditedEntry({});
+        setEditedEntry(-1);
     
     }
 
@@ -167,7 +149,7 @@ function Section(props) {
     }
 
 
-    if (inputObject.type === "edForm" && props.sIC.exStat.ed === true && Object.keys(editedEntry).length > 0) {
+    if (inputObject.type === "edForm" && props.sIC.exStat.ed === true && editedEntry !== -1) {
 
         return (
             
@@ -177,11 +159,11 @@ function Section(props) {
                     <Button buttonType={buttonType} text="..." clickFunction={props.sIC.exFunction}></Button>
                 </div>
                 <div>
-                    <CustomInput editEntry={editedEntry} propertyName="institution" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier1} labelText={inputObject.label1} sectionType={inputObject.type}></CustomInput>
-                    <CustomInput editEntry={editedEntry} propertyName="focus" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier2} labelText={inputObject.label2} sectionType={inputObject.type}></CustomInput>
-                    <CustomInput editEntry={editedEntry} propertyName="start" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier3} labelText="Start Date" sectionType={inputObject.type}></CustomInput>
-                    <CustomInput editEntry={editedEntry} propertyName="end" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier4} labelText="End Date" sectionType={inputObject.type}></CustomInput>
-                    <CustomInput editEntry={editedEntry} propertyName="location" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier5} labelText="Location" sectionType={inputObject.type}></CustomInput>
+                    <CustomInput editChanger={setEditedEntry} editEntry={editedEntry} propertyName="institution" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier1} labelText={inputObject.label1} sectionType={inputObject.type}></CustomInput>
+                    <CustomInput editChanger={setEditedEntry} editEntry={editedEntry} propertyName="focus" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier2} labelText={inputObject.label2} sectionType={inputObject.type}></CustomInput>
+                    <CustomInput editChanger={setEditedEntry} editEntry={editedEntry} propertyName="start" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier3} labelText="Start Date" sectionType={inputObject.type}></CustomInput>
+                    <CustomInput editChanger={setEditedEntry} editEntry={editedEntry} propertyName="end" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier4} labelText="End Date" sectionType={inputObject.type}></CustomInput>
+                    <CustomInput editChanger={setEditedEntry} editEntry={editedEntry} propertyName="location" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier5} labelText="Location" sectionType={inputObject.type}></CustomInput>
                 </div>
                 <div>
                     <Button buttonType="deleteEd" text="Delete" clickFunction={deleteEntry}></Button>
@@ -191,7 +173,7 @@ function Section(props) {
             
         )
 
-    } else if (inputObject.type === "workForm" && props.sIC.exStat.work === true && Object.keys(editedEntry).length > 0) {
+    } else if (inputObject.type === "workForm" && props.sIC.exStat.work === true && editedEntry !== -1) {
 
         return (
            
@@ -201,12 +183,12 @@ function Section(props) {
                     <Button buttonType={buttonType} text="..." clickFunction={props.sIC.exFunction}></Button>
                 </div>
                 <div>
-                    <CustomInput editEntry={editedEntry} propertyName="institution" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier1} labelText={inputObject.label1} sectionType={inputObject.type}></CustomInput>
-                    <CustomInput editEntry={editedEntry} propertyName="focus" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier2} labelText={inputObject.label2} sectionType={inputObject.type}></CustomInput>
-                    <CustomInput editEntry={editedEntry} propertyName="start" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier3} labelText="Start Date" sectionType={inputObject.type}></CustomInput>
-                    <CustomInput editEntry={editedEntry} propertyName="end" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier4} labelText="End Date" sectionType={inputObject.type}></CustomInput>
-                    <CustomInput editEntry={editedEntry} propertyName="location" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier5} labelText="Location" sectionType={inputObject.type}></CustomInput>
-                    <CustomInput taStat="true" editEntry={editedEntry} propertyName="description" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier6} labelText="Description" sectionType={inputObject.type}></CustomInput>
+                    <CustomInput editChanger={setEditedEntry} editEntry={editedEntry} propertyName="institution" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier1} labelText={inputObject.label1} sectionType={inputObject.type}></CustomInput>
+                    <CustomInput editChanger={setEditedEntry} editEntry={editedEntry} propertyName="focus" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier2} labelText={inputObject.label2} sectionType={inputObject.type}></CustomInput>
+                    <CustomInput editChanger={setEditedEntry} editEntry={editedEntry} propertyName="start" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier3} labelText="Start Date" sectionType={inputObject.type}></CustomInput>
+                    <CustomInput editChanger={setEditedEntry} editEntry={editedEntry} propertyName="end" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier4} labelText="End Date" sectionType={inputObject.type}></CustomInput>
+                    <CustomInput editChanger={setEditedEntry} editEntry={editedEntry} propertyName="location" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier5} labelText="Location" sectionType={inputObject.type}></CustomInput>
+                    <CustomInput taStat="true" editChanger={setEditedEntry} editEntry={editedEntry} propertyName="description" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier6} labelText="Description" sectionType={inputObject.type}></CustomInput>
                 </div>
                 <div>
                     <Button buttonType="deleteWork" text="Delete" clickFunction={deleteEntry}></Button>
