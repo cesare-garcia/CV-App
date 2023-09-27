@@ -145,9 +145,8 @@ function Section(props) {
 
     const saveEdit = (e) => {
         e.preventDefault();
-        console.log("edit saved");
+        setEditedEntry(-1);
     }
-
 
     if (inputObject.type === "edForm" && props.sIC.exStat.ed === true && editedEntry !== -1) {
 
@@ -165,7 +164,7 @@ function Section(props) {
                     <CustomInput editChanger={setEditedEntry} editEntry={editedEntry} propertyName="end" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier4} labelText="End Date" sectionType={inputObject.type}></CustomInput>
                     <CustomInput editChanger={setEditedEntry} editEntry={editedEntry} propertyName="location" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier5} labelText="Location" sectionType={inputObject.type}></CustomInput>
                 </div>
-                <div>
+                <div className="buttonBar">
                     <Button buttonType="deleteEd" text="Delete" clickFunction={deleteEntry}></Button>
                     <Button buttonType="saveEdEdit" text="Save" clickFunction={saveEdit}></Button>
                 </div>
@@ -190,7 +189,7 @@ function Section(props) {
                     <CustomInput editChanger={setEditedEntry} editEntry={editedEntry} propertyName="location" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier5} labelText="Location" sectionType={inputObject.type}></CustomInput>
                     <CustomInput taStat="true" editChanger={setEditedEntry} editEntry={editedEntry} propertyName="description" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier6} labelText="Description" sectionType={inputObject.type}></CustomInput>
                 </div>
-                <div>
+                <div className="buttonBar">
                     <Button buttonType="deleteWork" text="Delete" clickFunction={deleteEntry}></Button>
                     <Button buttonType="saveWorkEdit" text="Save" clickFunction={saveEdit}></Button>
                 </div>
@@ -215,7 +214,7 @@ function Section(props) {
                     <CustomInput propertyName="end" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier4} labelText="End Date" sectionType={inputObject.type}></CustomInput>
                     <CustomInput propertyName="location" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier5} labelText="Location" sectionType={inputObject.type}></CustomInput>
                 </div>
-                <div>
+                <div className="buttonBar">
                     <Button buttonType="cancelNewEd" text="Cancel" clickFunction={props.sIC.enFunction2}></Button>
                     <Button buttonType="saveEd" text="Save" clickFunction={addToCollection}></Button>
                 </div>
@@ -241,7 +240,7 @@ function Section(props) {
                     <CustomInput propertyName="location" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier5} labelText="Location" sectionType={inputObject.type}></CustomInput>
                     <CustomInput taStat="true" propertyName="description" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier6} labelText="Description" sectionType={inputObject.type}></CustomInput>
                 </div>
-                <div>
+                <div className="buttonBar">
                     <Button buttonType="cancelNewWork" text="Cancel" clickFunction={props.sIC.enFunction2}></Button>
                     <Button buttonType="saveWork" text="Save" clickFunction={addToCollection}></Button>
                 </div>
