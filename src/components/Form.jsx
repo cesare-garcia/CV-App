@@ -85,11 +85,46 @@ function Form(props) {
         enFunction3: setNewEntry
     }
 
+    const downloadFunction = (e) => {
+        e.preventDefault();
+        alert("Download function has been disabled by creator.")
+        // const resume = document.querySelector(".resume");
+        // const htmlContent = resume.innerHTML;
+
+        // const styles = document.getElementsByTagName('style');
+        // let allStyles = '';
+        // for (let i = 0; i < styles.length; i++) {
+        //     allStyles += styles[i].outerHTML;
+        // }
+        // const fullHtml = `
+        //     <!DOCTYPE html>
+        //     <html lang="en">
+        //     <head>
+        //         <meta charset="UTF-8">
+        //         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        //         ${allStyles}
+        //     </head>
+        //     <body>
+        //         ${htmlContent}
+        //     </body>
+        //     </html>`
+        // ;
+        // const blob = new Blob([fullHtml], {type: 'text/html'});
+        // const url = URL.createObjectURL(blob);
+        // const link = document.createElement('a');
+        // link.href = url;
+        // link.download = 'resume.html';
+        // document.body.appendChild(link);
+        // link.click();
+        // document.body.removeChild(link);
+        // URL.revokeObjectURL(url);
+    }
+
     return (
         <form>
             <div className="buttonBar">
                 <Button buttonType="clear" clickFunction={props.allChangers.reset} text="Clear"></Button>
-                <Button buttonType="download" text="Download"></Button>
+                <Button buttonType="download" clickFunction={downloadFunction} text="Download"></Button>
             </div>
             <section className="iSection">
                 <h2>Personal Information</h2>
