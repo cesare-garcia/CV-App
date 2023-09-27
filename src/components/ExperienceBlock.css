@@ -1,7 +1,7 @@
 .eBlock {
-    display: flex;
-    justify-content: flex-start;
-    gap: 40px;
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    
     margin-bottom: 20px;
 }
 
@@ -12,8 +12,9 @@
     text-align: left;
 }
 
-.eLeft {
-    width: 180px;
+.eRight {
+    grid-column: 2/3;
+    max-width: 470px;
 }
 
 .blockP {
