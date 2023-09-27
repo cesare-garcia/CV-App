@@ -6,32 +6,103 @@ import CustomInput from "./CustomInput";
 
 function Form(props) {
 
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [expansionStatus, setExpansionStatus] = useState({ ed: false, work: false});
+    const [newEntry, setNewEntry] = useState({ newEd: false, newWork: false});
 
-    const handleShow = (e) => {
+    const handleExpansion = (e) => {
         e.preventDefault();
-        (activeIndex === 0) ? setActiveIndex(1) : setActiveIndex(0);
+        let targetElement = e.target;
+        if (targetElement.classList.contains("expEd") && !expansionStatus.ed && !expansionStatus.work) {
+            setExpansionStatus({ed: true, work: false});
+
+        } else if (targetElement.classList.contains("expEd") && expansionStatus.ed && !expansionStatus.work) {
+            setExpansionStatus({ed: false, work: false});
+
+        } else if (targetElement.classList.contains("expWork") && !expansionStatus.ed && !expansionStatus.work) {
+            setExpansionStatus({ed: false, work: true});
+
+        } else if (targetElement.classList.contains("expWork") && !expansionStatus.ed && expansionStatus.work) {
+            setExpansionStatus({ed: false, work: false});
+
+        } else if (targetElement.classList.contains("expEd") && !expansionStatus.ed && expansionStatus.work) {
+            setExpansionStatus({ed: true, work: false});
+
+        } else if (targetElement.classList.contains("expWork") && expansionStatus.ed && !expansionStatus.work) {
+            setExpansionStatus({ed: false, work: true});
+
+        }
+
+    }
+
+    const initiateNewEntry = (e) => {
+        e.preventDefault();
+        (e.target.classList.contains("addEd")) ? setNewEntry({newEd: true, newWork: false}) : setNewEntry({newEd: false, newWork: true});
+    }
+
+    const cancelNewEntry = (e) => {
+        e.preventDefault();
+        let targetElement = e.target;
+        if (targetElement.classList.contains("cancelNewEd") && newEntry.newEd === true) {
+            let newSchool = document.querySelector("#newSchool");
+            newSchool.value = "";
+            let newMajor = document.querySelector("#newMajor");
+            newMajor.value = "";
+            let newSchoolStart = document.querySelector("#newEdStart");
+            newSchoolStart.value = "";
+            let newSchoolEnd = document.querySelector("#newEdEnd");
+            newSchoolEnd.value = "";
+            let newSchoolLocation = document.querySelector("#newEdLocation");
+            newSchoolLocation.value = "";
+            setNewEntry({newEd: false, newWork: false});
+            props.allChangers.eChanger1({});
+
+        } else {
+            
+            let newCompany = document.querySelector("#newCompany");
+            newCompany.value = "";
+            let newRole = document.querySelector("#newRole");
+            newRole.value = "";
+            let workStart = document.querySelector("#newWorkStart");
+            workStart.value = "";
+            let workEnd = document.querySelector("#newWorkEnd");
+            workEnd.value = "";
+            let newWorkLocation = document.querySelector("#newWorkLocation");
+            newWorkLocation.value = "";
+            let workDesc = document.querySelector("#workDescription");
+            workDesc.value = "";
+            setNewEntry({newEd: false, newWork: false})
+            props.allChangers.wChanger1({}); 
+
+        }
+    }
+
+    const statusObject = {
+        exStat: expansionStatus,
+        enStat: newEntry,
+        exFunction: handleExpansion,
+        enFunction1: initiateNewEntry,
+        enFunction2: cancelNewEntry,
+        enFunction3: setNewEntry
     }
 
     return (
         <form>
             <div className="buttonBar">
-                <Button bType="clear" text="Clear" clear={props.clear}></Button>
-                <Button information={props.information} bType="dload" text="Download"></Button>
+                <Button buttonType="clear" clickFunction={props.allChangers.reset} text="Clear"></Button>
+                <Button buttonType="download" text="Download"></Button>
             </div>
-            <section>
+            <section className="iSection">
                 <h2>Personal Information</h2>
-                <div className="inputs">
-                    <CustomInput propertyName="name" changer={props.changer} information={props.information} identifier="my-name" labelText="Name"></CustomInput>
-                    <CustomInput propertyName="email" changer={props.changer} information={props.information} identifier="my-email" labelText="Email"></CustomInput>
-                    <CustomInput propertyName="phone" changer={props.changer} information={props.information} identifier="my-phone" labelText="Phone"></CustomInput>
-                    <CustomInput propertyName="address" changer={props.changer} information={props.information} identifier="my-address" labelText="Address"></CustomInput>
-
+                <div>
+                    <CustomInput propertyName="name" allInfo={props.allInfo} allChangers={props.allChangers} identifier="my-name" labelText="Name"></CustomInput>
+                    <CustomInput propertyName="email" allInfo={props.allInfo} allChangers={props.allChangers} identifier="my-email" labelText="Email"></CustomInput>
+                    <CustomInput propertyName="phone" allInfo={props.allInfo} allChangers={props.allChangers} identifier="my-phone" labelText="Phone"></CustomInput>
+                    <CustomInput propertyName="address" allInfo={props.allInfo} allChangers={props.allChangers} identifier="my-address" labelText="Address"></CustomInput>
                 </div>
             </section>
             <div className="formBottom">
-                <Section sectionType="edForm" isActive={activeIndex === 0} onShow={handleShow}></Section>
-                <Section sectionType="workForm" isActive={activeIndex === 1} onShow={handleShow}></Section>
+                <Section allInfo={props.allInfo} allChangers={props.allChangers} sectionType="edForm" sIC={statusObject}></Section>
+                <Section allInfo={props.allInfo} allChangers={props.allChangers} sectionType="workForm" sIC={statusObject}></Section>
             </div>
         </form>
     )

@@ -1,19 +1,44 @@
 form {
-    padding: 20px;
-    background-color: beige;
     color: black;
-    border-radius: 5px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
+h2 {
+    margin: 0;
+}
+
+.buttonBar,
+section {
+    background-color: beige;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.buttonBar {
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .sectionHeader {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 10px;
 }
 
 .inputs {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 120px 200px;
     place-items: flex-start;
+    margin-bottom: 10px;
+    place-items: center flex-start;
+}
+
+.formBottom {
+    display: flex;
+    flex-direction: column;
+    gap: 20px
 }
