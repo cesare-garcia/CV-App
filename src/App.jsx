@@ -59,7 +59,6 @@ function App() {
     wInfo2: workCollection
   }
 
-
   return (
     <div className="appContainer">
       <Form allInfo={infoObject} allChangers={changerObject} ></Form>
@@ -67,6 +66,7 @@ function App() {
     </div>
 
   )
+  
 }
 
 export default App
