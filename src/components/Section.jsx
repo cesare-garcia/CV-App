@@ -98,7 +98,6 @@ function Section(props) {
         
     }
 
-    
     const openEdit = (e) => {
         e.preventDefault();
         let editKey = e.target.getAttribute("data-entry");
@@ -137,6 +136,37 @@ function Section(props) {
 
     }
 
+    const deleteEntry = (e) => {
+        e.preventDefault();
+        let key;
+        let revisedArray = [];
+        let targetCollection;
+        let properChanger;
+
+        if (e.target.classList.contains("deleteEd")) {
+            key = document.querySelector("#newSchool").value;
+            targetCollection = props.allInfo.eInfo2;
+            properChanger = props.allChangers.eChanger2;
+
+        } else if (e.target.classList.contains("deleteWork")) {
+            key = document.querySelector("#newCompany").value;
+            targetCollection = props.allInfo.wInfo2;
+            properChanger = props.allChangers.wChanger2;
+
+        }
+
+        revisedArray = targetCollection.filter((entry) => entry.institution !== key);
+        properChanger(revisedArray);
+        setEditedEntry({});
+    
+    }
+
+    const saveEdit = (e) => {
+        e.preventDefault();
+        console.log("edit saved");
+    }
+
+
     if (inputObject.type === "edForm" && props.sIC.exStat.ed === true && Object.keys(editedEntry).length > 0) {
 
         return (
@@ -154,8 +184,8 @@ function Section(props) {
                     <CustomInput editEntry={editedEntry} propertyName="location" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier5} labelText="Location" sectionType={inputObject.type}></CustomInput>
                 </div>
                 <div>
-                    <Button buttonType="deleteEd" text="Delete"></Button>
-                    <Button buttonType="saveEdEdit" text="Save"></Button>
+                    <Button buttonType="deleteEd" text="Delete" clickFunction={deleteEntry}></Button>
+                    <Button buttonType="saveEdEdit" text="Save" clickFunction={saveEdit}></Button>
                 </div>
             </section>
             
@@ -179,8 +209,8 @@ function Section(props) {
                     <CustomInput taStat="true" editEntry={editedEntry} propertyName="description" allInfo={props.allInfo} allChangers={props.allChangers} identifier={inputObject.identifier6} labelText="Description" sectionType={inputObject.type}></CustomInput>
                 </div>
                 <div>
-                    <Button buttonType="deleteWork" text="Delete"></Button>
-                    <Button buttonType="saveWorkEdit" text="Save"></Button>
+                    <Button buttonType="deleteWork" text="Delete" clickFunction={deleteEntry}></Button>
+                    <Button buttonType="saveWorkEdit" text="Save" clickFunction={saveEdit}></Button>
                 </div>
             </section>
            
